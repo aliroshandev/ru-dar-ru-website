@@ -1,0 +1,82 @@
+<div class="max-w-6xl mx-auto px-4 py-8 flex flex-col gap-6">
+  <header class="flex flex-col gap-1">
+    <h1 class="text-h2 font-bold text-text">آگهی‌ها</h1>
+    <p class="text-body-medium text-text-secondary">مرور آگهی‌های بازار.</p>
+  </header>
+
+  <!-- Filters -->
+  <div class="flex flex-col sm:flex-row gap-4 items-end">
+    <div class="flex flex-col gap-1 flex-1">
+      <label class="text-caption text-text-secondary" for="list-category">دسته‌بندی</label>
+      <ui-select
+        id="list-category"
+        [options]="[{ value: '', label: 'همه' }, ...rootCategories().map((c) => ({ value: c.id, label: c.label }))]"
+        (valueChange)="onCategoryChange($event)"
+      />
+    </div>
+    <div class="flex flex-col gap-1 flex-1">
+      <label class="text-caption text-text-secondary" for="list-sort">مرتب‌سازی</label>
+      <ui-select
+        id="list-sort"
+        [options]="sortOptions"
+        (valueChange)="onSortChange($event)"
+      />
+    </div>
+    <div class="flex flex-col gap-1 flex-1">
+      <label class="text-caption text-text-secondary" for="list-type">نوع</label>
+      <ui-select
+        id="list-type"
+        [options]="allTypeOptions()"
+        (valueChange)="onTypeChange($event)"
+      />
+    </div>
+  </div>
+
+  @if (state().loading) {
+    <ui-loading size="lg" label="در حال بارگذاری آگهی‌ها..." />
+  } @else if (state().error) {
+    <ui-error-state (retry)="retry()" />
+  } @else if (results(); as result) {
+    @if (result.items.length === 0) {
+      <ui-empty-state icon="📦" title="آگهی‌ای یافت نشد" description="آگهی جدیدی ثبت کنید یا فیلترها را تغییر دهید." />
+    } @else {
+      <p class="text-body-small text-text-secondary">{{ result.total }} آگهی یافت شد.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        @for (advert of result.items; track advert.id) {
+          <ui-advert-card
+            [advert]="advert"
+            [categoryLabel]="categoryLabel(advert.category)"
+            [typeLabel]="typeLabel(advert.type)"
+            [location]="locationText(advert)"
+            [perUnitLabel]="perUnitLabel(advert)"
+          />
+        }
+      </div>
+
+      @if (totalPages() > 1) {
+        <nav class="flex items-center justify-center gap-2 pt-2" aria-label="صفحه‌بندی">
+          <button
+            ui-button
+            variant="secondary"
+            size="sm"
+            [disabled]="page() <= 1"
+            (click)="goTo(page() - 1)"
+          >
+            قبلی
+          </button>
+          <span class="text-body-small text-text-secondary">صفحه {{ page() }} از {{ totalPages() }}</span>
+          <button
+            ui-button
+            variant="secondary"
+            size="sm"
+            [disabled]="page() >= totalPages()"
+            (click)="goTo(page() + 1)"
+          >
+            بعدی
+          </button>
+        </nav>
+      }
+    }
+  }
+</div>

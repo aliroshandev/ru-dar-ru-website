@@ -1,0 +1,81 @@
+<div class="max-w-6xl mx-auto px-4 py-8 flex flex-col gap-6">
+  <header class="flex flex-col gap-1">
+    <h1 class="text-h2 font-bold text-text">جستجوی آگهی</h1>
+    <p class="text-body-medium text-text-secondary">
+      آگهی‌ها را بر اساس دسته‌بندی و فیلدهای آن جستجو کنید.
+    </p>
+  </header>
+
+  <!-- Search form -->
+  <ui-card elevation="flat" class="p-6">
+    @if (rootCategories().length === 0) {
+      <ui-alert tone="info">هنوز هیچ دسته‌بندی ثبت نشده است.</ui-alert>
+    } @else {
+      <div class="flex flex-col sm:flex-row gap-4 items-end">
+        <div class="flex flex-col gap-1 flex-1">
+          <label class="text-caption text-text-secondary" for="category">دسته‌بندی</label>
+          <ui-select
+            id="category"
+            [options]="rootCategories().map((c) => ({ value: c.id, label: c.label }))"
+            (valueChange)="onCategoryChange($event)"
+          />
+        </div>
+
+        @if (subcategories().length > 0) {
+          <div class="flex flex-col gap-1 flex-1">
+            <label class="text-caption text-text-secondary" for="subcategory">زیرمجموعه</label>
+            <ui-select
+              id="subcategory"
+              [options]="subcategories().map((c) => ({ value: c.id, label: c.label }))"
+              (valueChange)="onSubcategoryChange($event)"
+            />
+          </div>
+        }
+      </div>
+
+      @if (sections().length > 0 && formTree()) {
+        <div class="mt-6">
+          <ui-dynamic-form
+            [sections]="sections()"
+            [tree]="formTree()!"
+          />
+        </div>
+
+        <div class="mt-6 flex items-center gap-3">
+          <button ui-button variant="primary" size="lg" [disabled]="!canSearch()" (click)="onSubmit()">
+            جستجو
+          </button>
+          @if (queryResult().loading) {
+            <ui-loading size="sm" label="در حال جستجو..." />
+          }
+          @if (queryResult().error) {
+            <ui-alert tone="error">{{ queryResult().error }}</ui-alert>
+          }
+        </div>
+      }
+    }
+  </ui-card>
+
+  <!-- Results -->
+  @if (results()) {
+    <section class="flex flex-col gap-3" aria-label="نتایج جستجو">
+      <p class="text-body-small text-text-secondary">
+        {{ results()!.total }} نتیجه یافت شد.
+      </p>
+
+      @if (results()!.items.length === 0) {
+        <ui-empty-state
+          icon="🔍"
+          title="نتیجه‌ای یافت نشد"
+          description="معیارهای جستجو را تغییر دهید."
+        />
+      } @else {
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          @for (advert of results()!.items; track advert.id) {
+            <ui-advert-card [advert]="advert" [perUnitLabel]="perUnitLabel(advert.category)" />
+          }
+        </div>
+      }
+    </section>
+  }
+</div>

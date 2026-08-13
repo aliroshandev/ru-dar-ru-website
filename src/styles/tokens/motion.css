@@ -1,0 +1,16 @@
+/*
+ * Motion — duration tokens + easing curves.
+ * TODO: verify exact ms + cubic-bezier values against Figma.
+ * Reduced Motion is enforced via prefers-reduced-motion in global styles.
+ */
+
+:root {
+  --duration-instant: 100ms;
+  --duration-fast: 150ms;
+  --duration-standard: 250ms;
+  --duration-emphasized: 400ms;
+
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-enter: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --ease-exit: cubic-bezier(0.3, 0, 0.8, 0.15);
+}

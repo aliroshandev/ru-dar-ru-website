@@ -1,0 +1,124 @@
+@import 'tailwindcss';
+
+/*
+ * Design tokens (primitive + semantic layers).
+ * Placeholder values are marked TODO: verify against Figma.
+ */
+@import './styles/tokens/color.css';
+@import './styles/tokens/semantic.css';
+@import './styles/tokens/typography.css';
+@import './styles/tokens/spacing.css';
+@import './styles/tokens/radius.css';
+@import './styles/tokens/shadow.css';
+@import './styles/tokens/motion.css';
+@import './styles/tokens/breakpoints.css';
+
+/*
+ * Expose SEMANTIC tokens to Tailwind v4 so components use utilities
+ * generated from the semantic layer (e.g. bg-surface, text-primary,
+ * border-default, shadow-md, rounded-lg). Primitives (brand/neutral) are
+ * defined as plain :root vars in semantic.css and consumed via these.
+ * Components must NOT consume raw primitive brand/neutral values directly.
+ */
+@theme inline {
+  --font-sans: var(--font-family-base);
+
+  /* Surface */
+  --color-surface: var(--surface-default);
+  --color-surface-secondary: var(--surface-secondary);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-surface-overlay: var(--surface-overlay);
+  --color-surface-raised: var(--surface-raised);
+
+  /* Background */
+  --color-bg: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-inverse: var(--bg-inverse);
+  --color-bg-brand-subtle: var(--bg-brand-subtle);
+
+  /* Text */
+  --color-text: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-text-disabled: var(--text-disabled);
+  --color-text-inverse: var(--text-inverse);
+  --color-text-link: var(--text-link);
+  --color-text-brand: var(--text-brand);
+  --color-text-error: var(--text-error);
+  --color-text-success: var(--text-success);
+  --color-text-warning: var(--text-warning);
+
+  /* Border */
+  --color-border: var(--border-default);
+  --color-border-strong: var(--border-strong);
+  --color-border-focus: var(--border-focus);
+  --color-border-error: var(--border-error);
+  --color-border-brand: var(--border-brand);
+
+  /* Action */
+  --color-action-primary: var(--action-primary-default);
+  --color-action-secondary: var(--action-secondary-default);
+  --color-action-destructive: var(--action-destructive-default);
+
+  /* Feedback */
+  --color-feedback-info: var(--feedback-info);
+  --color-feedback-success: var(--feedback-success);
+  --color-feedback-warning: var(--feedback-warning);
+  --color-feedback-error: var(--feedback-error);
+  --color-feedback-info-subtle: var(--feedback-info-subtle);
+  --color-feedback-success-subtle: var(--feedback-success-subtle);
+  --color-feedback-warning-subtle: var(--feedback-warning-subtle);
+  --color-feedback-error-subtle: var(--feedback-error-subtle);
+
+  /* Radius */
+  --radius-xs: var(--radius-xs);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-2xl: var(--radius-2xl);
+  --radius-full: var(--radius-full);
+
+  /* Shadows */
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+  --shadow-overlay: var(--shadow-overlay);
+  --shadow-focus-primary: var(--shadow-focus-primary);
+  --shadow-focus-error: var(--shadow-focus-error);
+
+  /* Motion */
+  --ease-standard: var(--ease-standard);
+  --ease-enter: var(--ease-enter);
+  --ease-exit: var(--ease-exit);
+
+  /* Breakpoints */
+  --breakpoint-tablet: var(--breakpoint-mobile);
+  --breakpoint-desktop: var(--breakpoint-tablet);
+  --breakpoint-lg: var(--breakpoint-desktop);
+  --breakpoint-xl: var(--breakpoint-desktop-large);
+}
+
+/* Accessibility baseline */
+:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html {
+  font-family: var(--font-family-base);
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+}

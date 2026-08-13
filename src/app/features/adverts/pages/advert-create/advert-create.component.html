@@ -1,0 +1,65 @@
+<div class="max-w-5xl mx-auto px-4 py-8 flex flex-col gap-6">
+  <header class="flex flex-col gap-1">
+    <h1 class="text-h2 font-bold text-text">ایجاد آگهی</h1>
+    <p class="text-body-medium text-text-secondary">
+      دسته‌بندی را انتخاب کنید و فرم را تکمیل نمایید.
+    </p>
+  </header>
+
+  @if (createdAdvert()) {
+    <ui-alert tone="success">
+      آگهی شما با موفقیت ثبت شد.
+      <a class="underline ml-2" routerLink="/adverts/{{ createdAdvert()!.id }}">مشاهده آگهی</a>
+    </ui-alert>
+  } @else {
+    <ui-card class="p-6 flex flex-col gap-6">
+      @if (rootCategories().length === 0) {
+        <ui-empty-state icon="🏗️" title="هیچ دسته‌بندی در دسترس نیست" />
+      } @else {
+        <div class="flex flex-col sm:flex-row gap-4 items-end">
+          <div class="flex flex-col gap-1 flex-1">
+            <label class="text-caption text-text-secondary" for="create-category">دسته‌بندی</label>
+            <ui-select
+              id="create-category"
+              [options]="rootCategories().map((c) => ({ value: c.id, label: c.label }))"
+              (valueChange)="onCategoryChange($event)"
+            />
+          </div>
+          @if (subcategories().length > 0) {
+            <div class="flex flex-col gap-1 flex-1">
+              <label class="text-caption text-text-secondary" for="create-subcategory">زیرمجموعه</label>
+              <ui-select
+                id="create-subcategory"
+                [options]="subcategories().map((c) => ({ value: c.id, label: c.label }))"
+                (valueChange)="onSubcategoryChange($event)"
+              />
+            </div>
+          }
+        </div>
+
+        @if (formTree()) {
+          <ui-dynamic-form [sections]="sections()" [tree]="formTree()!" />
+        }
+
+        <div class="flex items-center gap-3">
+          <button
+            ui-button
+            variant="primary"
+            size="lg"
+            [disabled]="!canSubmit() || submitState().submitting"
+            (click)="onSubmit()"
+          >
+            ثبت آگهی
+          </button>
+          @if (submitState().submitting) {
+            <ui-loading size="sm" label="در حال ثبت..." />
+          }
+        </div>
+
+        @if (failed()) {
+          <ui-alert tone="error">ثبت آگهی ناموفق بود. دوباره تلاش کنید.</ui-alert>
+        }
+      }
+    </ui-card>
+  }
+</div>

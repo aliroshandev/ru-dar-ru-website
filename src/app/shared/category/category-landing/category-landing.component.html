@@ -1,0 +1,56 @@
+<div class="max-w-6xl mx-auto px-4 py-8 flex flex-col gap-6">
+  <header class="flex flex-col gap-2">
+    <h1 class="text-h1 font-bold text-text">{{ category()?.label ?? categoryId() }}</h1>
+    @if (category()?.description) {
+      <p class="text-body-medium text-text-secondary">{{ category()?.description }}</p>
+    }
+  </header>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    @for (sub of subcategories(); track sub.id) {
+      <a
+        routerLink="/search"
+        [queryParams]="{ categoryId: categoryId(), subcategoryId: sub.id }"
+        class="block h-full"
+      >
+        <ui-card class="p-5 flex flex-col gap-2 h-full">
+          <h2 class="text-body-large font-semibold text-text">{{ sub.label }}</h2>
+          @if (sub.description) {
+            <p class="text-body-small text-text-secondary">{{ sub.description }}</p>
+          }
+          <span class="mt-auto text-body-small font-medium text-action-primary">
+            مشاهده آگهی‌ها ←
+          </span>
+        </ui-card>
+      </a>
+    }
+  </div>
+
+  @if (category()) {
+    <div class="flex flex-wrap items-center gap-3 pt-2">
+      <a
+        routerLink="/search"
+        [queryParams]="{ categoryId: categoryId() }"
+        class="text-body-small font-medium text-action-primary hover:underline"
+      >
+        جستجو در {{ category()!.label }}
+      </a>
+      <span class="text-text-tertiary">·</span>
+      <a
+        routerLink="/adverts"
+        [queryParams]="{ categoryId: categoryId() }"
+        class="text-body-small font-medium text-action-primary hover:underline"
+      >
+        همه آگهی‌های {{ category()!.label }}
+      </a>
+      <span class="text-text-tertiary">·</span>
+      <a
+        routerLink="/adverts/create"
+        [queryParams]="{ categoryId: categoryId() }"
+        class="text-body-small font-medium text-action-primary hover:underline"
+      >
+        ثبت آگهی {{ category()!.label }}
+      </a>
+    </div>
+  }
+</div>

@@ -1,0 +1,43 @@
+<div class="max-w-6xl mx-auto px-4 py-8 flex flex-col gap-6">
+  <header class="flex flex-col gap-1">
+    <h1 class="text-h2 font-bold text-text">علاقه‌مندی‌ها</h1>
+    <p class="text-body-medium text-text-secondary">آگهی‌هایی که ذخیره کرده‌اید.</p>
+  </header>
+
+  @if (state().loading) {
+    <ui-loading size="lg" label="در حال بارگذاری علاقه‌مندی‌ها..." />
+  } @else if (state().error) {
+    <ui-error-state (retry)="load()" />
+  } @else if (results(); as result) {
+    @if (result.items.length === 0) {
+      <ui-empty-state
+        icon="🔖"
+        title="علاقه‌مندی‌ای ثبت نشده است"
+        description="برای ذخیره آگهی، در صفحه آگهی روی «ذخیره» بزنید."
+      />
+    } @else {
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        @for (advert of result.items; track advert.id) {
+          <ui-advert-card
+            [advert]="advert"
+            [categoryLabel]="categoryLabel(advert.category)"
+            [location]="locationText(advert)"
+            [perUnitLabel]="perUnitLabel(advert)"
+          >
+            <button
+              advert-footer
+              ui-button
+              variant="secondary"
+              size="sm"
+              class="w-full"
+              [disabled]="!isFavorite(advert.id)"
+              (click)="removeFavorite(advert.id)"
+            >
+              حذف
+            </button>
+          </ui-advert-card>
+        }
+      </div>
+    }
+  }
+</div>

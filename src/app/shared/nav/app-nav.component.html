@@ -1,0 +1,48 @@
+<header class="sticky top-0 z-20 border-b border-border bg-surface/95 backdrop-blur">
+  <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
+    <a routerLink="/" class="flex items-center gap-2 no-underline">
+      <span class="text-h3 font-extrabold text-text">رو در رو</span>
+      <span class="text-caption text-text-tertiary hidden sm:inline">بازار آگهی‌های ساختمانی</span>
+    </a>
+
+    <nav class="flex items-center gap-1" aria-label="ناوبری اصلی">
+      <a
+        routerLink="/"
+        routerLinkActive="bg-surface-sunken text-text"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="rounded-lg px-3 py-2 text-body-small font-medium text-text-secondary hover:text-text transition-colors"
+      >
+        خانه
+      </a>
+      <a
+        routerLink="/search"
+        routerLinkActive="bg-surface-sunken text-text"
+        class="rounded-lg px-3 py-2 text-body-small font-medium text-text-secondary hover:text-text transition-colors"
+      >
+        جستجو
+      </a>
+      <a
+        routerLink="/adverts"
+        routerLinkActive="bg-surface-sunken text-text"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="rounded-lg px-3 py-2 text-body-small font-medium text-text-secondary hover:text-text transition-colors"
+      >
+        آگهی‌ها
+      </a>
+      <a
+        routerLink="/adverts/favorites"
+        routerLinkActive="bg-surface-sunken text-text"
+        class="rounded-lg px-3 py-2 text-body-small font-medium text-text-secondary hover:text-text transition-colors"
+      >
+        علاقه‌مندی‌ها
+      </a>
+      <a
+        routerLink="/adverts/create"
+        routerLinkActive="bg-surface-sunken text-text"
+        class="rounded-lg px-3 py-2 text-body-small font-medium text-action-primary hover:underline"
+      >
+        + ثبت آگهی
+      </a>
+    </nav>
+  </div>
+</header>

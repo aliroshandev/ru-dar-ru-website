@@ -1,0 +1,82 @@
+<div class="max-w-6xl mx-auto px-4 py-10 flex flex-col gap-8">
+  <section class="flex flex-col gap-3">
+    <h1 class="text-h1 font-extrabold text-text">به «رو در رو» خوش آمدید</h1>
+    <p class="text-body-medium text-text-secondary">
+      بازار آگهی‌های املاک، مصالح ساختمانی و خدمات. دسته‌بندی را انتخاب کنید:
+    </p>
+  </section>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    @for (category of rootCategories(); track category.id) {
+      <a
+        routerLink="/{{ category.id }}"
+        class="block h-full no-underline group"
+      >
+        <ui-card class="p-6 flex flex-col gap-2 h-full group-hover:shadow-lg transition-shadow">
+          <div class="flex items-start justify-between gap-2">
+            <h2 class="text-body-large font-semibold text-text">{{ category.label }}</h2>
+            @if (hasCount(category.id) && countFor(category.id) !== undefined) {
+              <span class="shrink-0 text-caption text-text-tertiary">
+                {{ countFor(category.id)!.toLocaleString('fa-IR') }} آگهی
+              </span>
+            } @else {
+              <span class="shrink-0 text-caption text-text-tertiary">...</span>
+            }
+          </div>
+          @if (category.description) {
+            <p class="text-body-small text-text-secondary">{{ category.description }}</p>
+          }
+          <span class="mt-auto pt-2 text-body-small font-medium text-action-primary">
+            ورود به {{ category.label }} ←
+          </span>
+        </ui-card>
+      </a>
+    }
+  </div>
+
+  <div class="flex flex-wrap items-center gap-3">
+    <a routerLink="/search" class="text-body-small font-medium text-action-primary hover:underline">
+      جستجوی پیشرفته
+    </a>
+    <span class="text-text-tertiary">·</span>
+    <a routerLink="/adverts/create" class="text-body-small font-medium text-action-primary hover:underline">
+      ثبت آگهی جدید
+    </a>
+    <span class="text-text-tertiary">·</span>
+    <a routerLink="/adverts" class="text-body-small font-medium text-action-primary hover:underline">
+      مشاهده همه آگهی‌ها
+    </a>
+  </div>
+
+  <section class="flex flex-col gap-4">
+    <div class="flex items-center justify-between">
+      <h2 class="text-h3 font-bold text-text">آخرین آگهی‌ها</h2>
+      <a routerLink="/adverts" class="text-body-small font-medium text-action-primary hover:underline">
+        مشاهده همه ←
+      </a>
+    </div>
+
+    @if (latest().loading) {
+      <ui-loading size="sm" label="در حال بارگذاری..." />
+    } @else {
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        @for (advert of latest().items; track advert.id) {
+          <a routerLink="/adverts/{{ advert.id }}" class="block no-underline group">
+            <ui-card class="p-5 flex flex-col gap-2 h-full group-hover:shadow-lg transition-shadow">
+              <h3 class="text-body-large font-semibold text-text">{{ advert.title }}</h3>
+              @if (advert.description) {
+                <p class="text-body-small text-text-secondary line-clamp-2">{{ advert.description }}</p>
+              }
+              <div class="mt-auto pt-2 flex items-center justify-between">
+                @if (priceText(advert); as price) {
+                  <span class="text-caption text-text-tertiary">{{ price }} {{ advert.pricing?.currency }}</span>
+                }
+                <span class="text-caption text-action-primary">مشاهده</span>
+              </div>
+            </ui-card>
+          </a>
+        }
+      </div>
+    }
+  </section>
+</div>

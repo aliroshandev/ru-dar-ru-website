@@ -1,0 +1,7 @@
+/*
+ * Primitive color scales — exposed to Tailwind v4 via @theme in styles.css.
+ * Values are PLACEHOLDERS pending extraction from the Figma "Foundations" file.
+ * TODO: verify against Figma (Brand/Teal, Brand/Blue, Neutral/Navy|Slate|Gray,
+ * Feedback/Coral, Feedback/Success|Warning|Info — each 10-step 50..900).
+ * This file is documentation/reference; the canonical @theme definitions live in styles.css.
+ */

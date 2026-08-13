@@ -1,0 +1,131 @@
+/*
+ * Semantic token layer — the ONLY layer components should consume.
+ * All values derive from the primitive scales (color.css) above.
+ * Swappable per theme (Light / Dark) via [data-theme] on <html>.
+ * TODO: verify primitive references against Figma "Foundations".
+ */
+
+:root,
+[data-theme='light'] {
+  /* background */
+  --bg-primary: var(--color-gray-50);
+  --bg-secondary: var(--color-gray-100);
+  --bg-tertiary: var(--color-gray-200);
+  --bg-inverse: var(--color-navy-900);
+  --bg-brand-subtle: var(--color-brand-50);
+
+  /* surface */
+  --surface-default: var(--color-gray-50);
+  --surface-secondary: var(--color-gray-100);
+  --surface-sunken: var(--color-gray-200);
+  --surface-overlay: var(--color-gray-50);
+  --surface-raised: var(--color-gray-50);
+
+  /* text */
+  --text-primary: var(--color-navy-900);
+  --text-secondary: var(--color-navy-700);
+  --text-tertiary: var(--color-navy-500);
+  --text-disabled: var(--color-navy-400);
+  --text-inverse: var(--color-gray-50);
+  --text-link: var(--color-secondary-600);
+  --text-brand: var(--color-brand-600);
+  --text-reverse: var(--color-gray-50);
+  --text-success: var(--color-success-700);
+  --text-warning: var(--color-warning-700);
+  --text-error: var(--color-coral-700);
+
+  /* border */
+  --border-default: var(--color-navy-200);
+  --border-strong: var(--color-navy-300);
+  --border-focus: var(--color-secondary-500);
+  --border-error: var(--color-coral-500);
+  --border-brand: var(--color-brand-500);
+
+  /* action primitives */
+  --action-primary-default: var(--color-brand-500);
+  --action-primary-hover: var(--color-brand-600);
+  --action-primary-pressed: var(--color-brand-700);
+  --action-primary-text: var(--color-gray-50);
+
+  --action-secondary-default: var(--surface-secondary);
+  --action-secondary-hover: var(--color-gray-200);
+  --action-secondary-pressed: var(--color-gray-300);
+  --action-secondary-text: var(--text-primary);
+
+  --action-destructive-default: var(--color-coral-500);
+  --action-destructive-hover: var(--color-coral-600);
+  --action-destructive-pressed: var(--color-coral-700);
+  --action-destructive-text: var(--color-gray-50);
+
+  /* feedback (filled + subtle) */
+  --feedback-info: var(--color-info-500);
+  --feedback-info-subtle: var(--color-info-50);
+  --feedback-success: var(--color-success-500);
+  --feedback-success-subtle: var(--color-success-50);
+  --feedback-warning: var(--color-warning-500);
+  --feedback-warning-subtle: var(--color-warning-50);
+  --feedback-error: var(--color-coral-500);
+  --feedback-error-subtle: var(--color-coral-50);
+}
+
+[data-theme='dark'] {
+  /* background */
+  --bg-primary: var(--color-navy-900);
+  --bg-secondary: var(--color-navy-800);
+  --bg-tertiary: var(--color-navy-700);
+  --bg-inverse: var(--color-gray-50);
+  --bg-brand-subtle: var(--color-brand-900);
+
+  /* surface */
+  --surface-default: var(--color-navy-900);
+  --surface-secondary: var(--color-navy-800);
+  --surface-sunken: var(--color-navy-700);
+  --surface-overlay: var(--color-navy-800);
+  --surface-raised: var(--color-navy-800);
+
+  /* text */
+  --text-primary: var(--color-gray-50);
+  --text-secondary: var(--color-slate-200);
+  --text-tertiary: var(--color-slate-400);
+  --text-disabled: var(--color-slate-600);
+  --text-inverse: var(--color-navy-900);
+  --text-link: var(--color-info-400);
+  --text-brand: var(--color-brand-400);
+  --text-reverse: var(--color-navy-900);
+  --text-success: var(--color-success-400);
+  --text-warning: var(--color-warning-400);
+  --text-error: var(--color-coral-400);
+
+  /* border */
+  --border-default: var(--color-slate-700);
+  --border-strong: var(--color-slate-600);
+  --border-focus: var(--color-info-500);
+  --border-error: var(--color-coral-500);
+  --border-brand: var(--color-brand-400);
+
+  /* action primitives */
+  --action-primary-default: var(--color-brand-500);
+  --action-primary-hover: var(--color-brand-400);
+  --action-primary-pressed: var(--color-brand-300);
+  --action-primary-text: var(--color-navy-900);
+
+  --action-secondary-default: var(--surface-secondary);
+  --action-secondary-hover: var(--color-navy-700);
+  --action-secondary-pressed: var(--color-navy-600);
+  --action-secondary-text: var(--text-primary);
+
+  --action-destructive-default: var(--color-coral-500);
+  --action-destructive-hover: var(--color-coral-400);
+  --action-destructive-pressed: var(--color-coral-300);
+  --action-destructive-text: var(--color-gray-50);
+
+  /* feedback */
+  --feedback-info: var(--color-info-500);
+  --feedback-info-subtle: var(--color-info-900);
+  --feedback-success: var(--color-success-500);
+  --feedback-success-subtle: var(--color-success-900);
+  --feedback-warning: var(--color-warning-500);
+  --feedback-warning-subtle: var(--color-warning-900);
+  --feedback-error: var(--color-coral-500);
+  --feedback-error-subtle: var(--color-coral-900);
+}

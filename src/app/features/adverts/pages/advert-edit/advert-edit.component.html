@@ -1,0 +1,39 @@
+<div class="max-w-4xl mx-auto px-4 py-8 flex flex-col gap-6">
+  <header class="flex flex-col gap-1">
+    <h1 class="text-h2 font-bold text-text">ویرایش آگهی</h1>
+    @if (advert(); as advert) {
+      <p class="text-body-medium text-text-secondary">در حال ویرایش «{{ advert.title }}»</p>
+    }
+  </header>
+
+  @if (loading()) {
+    <ui-loading size="lg" label="در حال بارگذاری آگهی..." />
+  } @else if (notFound()) {
+    <ui-empty-state icon="🔍" title="آگهی یافت نشد" />
+  } @else if (failed()) {
+    <ui-error-state (retry)="retry()" />
+  } @else if (formTree()) {
+    <ui-card class="p-6 flex flex-col gap-6">
+      <ui-dynamic-form [sections]="sections()" [tree]="formTree()!" />
+
+      <div class="flex items-center gap-3">
+        <button
+          ui-button
+          variant="primary"
+          size="lg"
+          [disabled]="submitState().submitting"
+          (click)="onSubmit()"
+        >
+          ذخیره تغییرات
+        </button>
+        @if (submitState().submitting) {
+          <ui-loading size="sm" label="در حال ذخیره..." />
+        }
+      </div>
+
+      @if (submitState().error) {
+        <ui-alert tone="error">{{ submitState().error }}</ui-alert>
+      }
+    </ui-card>
+  }
+</div>

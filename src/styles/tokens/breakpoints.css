@@ -1,0 +1,12 @@
+/*
+ * Grid & breakpoints — five named frames.
+ * TODO: verify exact width / columns / margin / gutter per frame against Figma.
+ */
+
+:root {
+  --breakpoint-mobile-small: 320px;
+  --breakpoint-mobile: 768px;
+  --breakpoint-tablet: 1024px;
+  --breakpoint-desktop: 1280px;
+  --breakpoint-desktop-large: 1536px;
+}

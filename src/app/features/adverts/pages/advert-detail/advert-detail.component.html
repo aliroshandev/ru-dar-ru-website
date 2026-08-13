@@ -1,0 +1,145 @@
+<div class="max-w-4xl mx-auto px-4 py-8 flex flex-col gap-6">
+  @if (loading()) {
+    <ui-loading size="lg" label="در حال بارگذاری آگهی..." />
+  } @else if (notFound()) {
+    <ui-empty-state icon="🔍" title="آگهی یافت نشد" description="این آگهی موجود نیست یا حذف شده است." />
+  } @else if (failed()) {
+    <ui-error-state (retry)="retry()" />
+  } @else if (advert(); as advert) {
+    <header class="flex flex-col gap-3">
+      <div class="flex items-center gap-2 flex-wrap">
+        <ui-badge tone="brand">{{ categoryLabel() }}</ui-badge>
+        @if (subcategoryLabel(); as sub) {
+          <ui-badge tone="neutral">{{ sub }}</ui-badge>
+        }
+        <ui-badge [tone]="statusTone()">{{ advert.status }}</ui-badge>
+        @if (!stateUpdating() && advert.status === 'active') {
+          <button ui-button variant="secondary" size="sm" (click)="setStatus('sold')">
+            فروخته شد
+          </button>
+        }
+        @if (!stateUpdating() && advert.status === 'sold') {
+          <button ui-button variant="secondary" size="sm" (click)="setStatus('active')">
+            بازفعال‌سازی
+          </button>
+        }
+        @if (stateUpdating()) {
+          <span class="text-body-small text-text-secondary">در حال به‌روزرسانی...</span>
+        }
+      </div>
+      @if (stateError(); as error) {
+        <ui-alert tone="error">{{ error }}</ui-alert>
+      }
+      <h1 class="text-h1 font-bold text-text">{{ advert.title }}</h1>
+      @if (advert.description) {
+        <p class="text-body-medium text-text-secondary">{{ advert.description }}</p>
+      }
+      <div class="flex items-center gap-2">
+        <a ui-button variant="secondary" size="sm" [routerLink]="['edit']">ویرایش</a>
+        <button
+          ui-button
+          [variant]="isFavorite() ? 'secondary' : 'ghost'"
+          size="sm"
+          (click)="toggleFavorite()"
+        >
+          {{ isFavorite() ? '♥ حذف از علاقه‌مندی‌ها' : '♡ ذخیره' }}
+        </button>
+        @if (!confirmingDelete()) {
+          <button ui-button variant="destructive" size="sm" (click)="toggleDeleteConfirm()">
+            حذف
+          </button>
+        }
+      </div>
+      @if (confirmingDelete()) {
+        <ui-card class="p-4 flex flex-col gap-3 border-action-destructive">
+          <p class="text-body-medium text-text">آیا از حذف این آگهی مطمئن هستید؟ این عمل بازگشت‌پذیر نیست.</p>
+          @if (deleteError(); as error) {
+            <ui-alert tone="error">{{ error }}</ui-alert>
+          }
+          <div class="flex items-center gap-2">
+            <button ui-button variant="destructive" size="sm" [disabled]="deleting()" (click)="deleteAdvert()">
+              {{ deleting() ? 'در حال حذف...' : 'تأیید حذف' }}
+            </button>
+            <button ui-button variant="ghost" size="sm" [disabled]="deleting()" (click)="toggleDeleteConfirm()">
+              انصراف
+            </button>
+          </div>
+        </ui-card>
+      }
+    </header>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <ui-card class="p-4 flex flex-col gap-1">
+        <span class="text-caption text-text-secondary">قیمت</span>
+        @if (priceText(advert); as price) {
+          <span class="text-h3 font-bold text-text">
+            {{ price }}
+            <span class="text-body-small text-text-secondary">{{ advert.pricing?.currency }}</span>
+          </span>
+        } @else {
+          <span class="text-body-medium text-text-secondary">توافقی</span>
+        }
+      </ui-card>
+
+      @if (locationText(advert); as location) {
+        <ui-card class="p-4 flex flex-col gap-1 col-span-2">
+          <span class="text-caption text-text-secondary">موقعیت</span>
+          <span class="text-body-medium text-text">{{ location }}</span>
+        </ui-card>
+      }
+    </div>
+
+    @for (group of groups(); track group.sectionId) {
+      <ui-card class="p-6 flex flex-col gap-3">
+        <h2 class="text-h3 font-semibold text-text">{{ group.title }}</h2>
+        <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
+          @for (row of group.rows; track row.key) {
+            <div class="flex flex-col gap-0.5">
+              <dt class="text-caption text-text-secondary">{{ row.label }}</dt>
+              <dd class="text-body-medium text-text">{{ row.value.text }}</dd>
+            </div>
+          }
+        </dl>
+      </ui-card>
+    }
+
+    @if (advert.media.length > 0) {
+      <ui-card class="p-6">
+        <h2 class="text-h3 font-semibold text-text mb-3">تصاویر</h2>
+        <div class="flex flex-wrap gap-3">
+          @for (item of advert.media; track item.id) {
+            <img
+              [src]="item.url"
+              [alt]="advert.title"
+              class="w-32 h-32 object-cover rounded-lg border border-border"
+            />
+          }
+        </div>
+      </ui-card>
+    }
+
+    @if (similarAdverts().length > 0) {
+      <section class="flex flex-col gap-3">
+        <h2 class="text-h3 font-semibold text-text">آگهی‌های مشابه</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          @for (item of similarAdverts(); track item.id) {
+            <a
+              ui-button
+              variant="ghost"
+              size="sm"
+              class="!h-auto !justify-start !p-0 text-right"
+              [routerLink]="['/adverts', item.id]"
+            >
+              <ui-card class="p-4 flex flex-col gap-1 w-full">
+                <h3 class="text-body-medium font-semibold text-text">{{ item.title }}</h3>
+                @if (priceText(item); as price) {
+                  <span class="text-caption text-text-tertiary">{{ price }} {{ item.pricing?.currency }}</span>
+                }
+              </ui-card>
+            </a>
+          }
+        </div>
+      </section>
+    }
+  }
+</div>

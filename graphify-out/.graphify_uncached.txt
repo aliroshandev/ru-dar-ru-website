@@ -1,0 +1,15 @@
+/Users/aliroshan/Desktop/projects/METI_rastegar/ru-dar-ru-website/README.md
+/Users/aliroshan/Desktop/projects/METI_rastegar/ru-dar-ru-website/src/app/app.html
+/Users/aliroshan/Desktop/projects/METI_rastegar/ru-dar-ru-website/src/app/features/adverts/pages/advert-create/advert-create.component.html
+/Users/aliroshan/Desktop/projects/METI_rastegar/ru-dar-ru-website/src/app/features/adverts/pages/advert-detail/advert-detail.component.html
+/Users/aliroshan/Desktop/projects/METI_rastegar/ru-dar-ru-website/src/app/features/adverts/pages/advert-edit/advert-edit.component.html
+/Users/aliroshan/Desktop/projects/METI_rastegar/ru-dar-ru-website/src/app/features/adverts/pages/advert-favorites/advert-favorites.component.html
+/Users/aliroshan/Desktop/projects/METI_rastegar/ru-dar-ru-website/src/app/features/adverts/pages/advert-list/advert-list.component.html
+/Users/aliroshan/Desktop/projects/METI_rastegar/ru-dar-ru-website/src/app/features/building-materials/pages/building-materials-landing/building-materials-landing.component.html
+/Users/aliroshan/Desktop/projects/METI_rastegar/ru-dar-ru-website/src/app/features/building-services/pages/building-services-landing/building-services-landing.component.html
+/Users/aliroshan/Desktop/projects/METI_rastegar/ru-dar-ru-website/src/app/features/home/home.component.html
+/Users/aliroshan/Desktop/projects/METI_rastegar/ru-dar-ru-website/src/app/features/real-estate/pages/real-estate-landing/real-estate-landing.component.html
+/Users/aliroshan/Desktop/projects/METI_rastegar/ru-dar-ru-website/src/app/features/search/pages/search-page/search-page.component.html
+/Users/aliroshan/Desktop/projects/METI_rastegar/ru-dar-ru-website/src/app/shared/category/category-landing/category-landing.component.html
+/Users/aliroshan/Desktop/projects/METI_rastegar/ru-dar-ru-website/src/app/shared/nav/app-nav.component.html
+/Users/aliroshan/Desktop/projects/METI_rastegar/ru-dar-ru-website/src/index.html
