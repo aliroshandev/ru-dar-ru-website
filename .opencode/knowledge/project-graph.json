@@ -1,0 +1,67 @@
+{
+  "project": "ru-dar-ru",
+  "updated": "2026-08-17",
+  "swaggerUrl": null,
+  "nodes": [
+    { "id": "contracts/advert", "type": "type", "name": "Advert", "path": "src/app/core/contracts/advert.model.ts", "feature": "core-contracts", "notes": "CREATED Phase 0: fields: Record<string,unknown> holds category-defined values (engine must not know their shape)" },
+    { "id": "contracts/advert-type", "type": "type", "name": "AdvertType", "path": "src/app/core/contracts/advert-type.ts", "feature": "core-contracts", "notes": "CREATED Phase 0: 'provider' | 'consumer' — publishing intent, not AuthRole" },
+    { "id": "contracts/advert-location", "type": "type", "name": "AdvertLocation", "path": "src/app/core/contracts/advert-location.ts", "feature": "core-contracts", "notes": "CREATED Phase 0: approximateZone backend-computed only; never derived client-side" },
+    { "id": "contracts/media", "type": "type", "name": "Media", "path": "src/app/core/contracts/media.ts", "feature": "core-contracts", "notes": "CREATED Phase 0: image|video + order" },
+    { "id": "contracts/category-definition", "type": "type", "name": "CategoryDefinition", "path": "src/app/core/contracts/category-definition.ts", "feature": "core-contracts", "notes": "CREATED Phase 0: slug + sections + filters; parentSlug for subcategories" },
+    { "id": "contracts/section-definition", "type": "type", "name": "SectionDefinition", "path": "src/app/core/contracts/section-definition.ts", "feature": "core-contracts", "notes": "CREATED Phase 0: group of FieldDefinition[]" },
+    { "id": "contracts/field-definition", "type": "type", "name": "FieldDefinition", "path": "src/app/core/contracts/field-definition.ts", "feature": "core-contracts", "notes": "CREATED Phase 0: FieldType union; validation/visibilityRule/appliesTo/dependsOn interpreted by engine, not here" },
+    { "id": "contracts/filter-definition", "type": "type", "name": "FilterDefinition", "path": "src/app/core/contracts/filter-definition.ts", "feature": "core-contracts", "notes": "CREATED Phase 0: category-defined search filter" },
+    { "id": "contracts/category-definition-source", "type": "service", "name": "CategoryDefinitionSource", "path": "src/app/core/contracts/repositories/category-definition-source.ts", "feature": "core-contracts", "notes": "CREATED Phase 0: PROPOSED CONTRACT — getBySlug/list (Promise); swappable seed/mock vs future Admin Panel API" },
+    { "id": "contracts/advert-repository", "type": "service", "name": "AdvertRepository", "path": "src/app/core/contracts/repositories/advert-repository.ts", "feature": "core-contracts", "notes": "CREATED Phase 0: PROPOSED CONTRACT — getById/search/create/update; search() params deferred to Phase 6" },
+    { "id": "domain/advert", "type": "type", "name": "Advert", "path": "src/app/features/adverts/domain/advert.model.ts", "feature": "core-contracts", "notes": "PRE-EXISTING parallel contract (reused by app): attributes: Readonly<Record<string,unknown>>; integration with core/contracts fully deferred" },
+    { "id": "domain/advert-type", "type": "type", "name": "AdvertType", "path": "src/app/features/adverts/domain/advert-type.ts", "feature": "core-contracts", "notes": "PRE-EXISTING parallel contract: identical shape 'provider' | 'consumer'" },
+    { "id": "domain/advert-location", "type": "type", "name": "AdvertLocation", "path": "src/app/features/adverts/domain/advert-location.ts", "feature": "core-contracts", "notes": "PRE-EXISTING parallel contract: country/state/city/lat/lng/address; missing core/contracts privacy fields" },
+    { "id": "domain/advert-media", "type": "type", "name": "AdvertMedia", "path": "src/app/features/adverts/domain/advert-media.ts", "feature": "core-contracts", "notes": "PRE-EXISTING parallel contract: image|video|document + thumbnailUrl/alt/sortOrder/mimeType" },
+    { "id": "domain/category-definition", "type": "type", "name": "AdvertCategoryDefinition", "path": "src/app/shared/category/advert-category.model.ts", "feature": "core-contracts", "notes": "PRE-EXISTING parallel contract: parentId, supportedAdvertTypes, sections, searchSections" },
+    { "id": "domain/field-definition", "type": "type", "name": "DynamicFieldDefinition", "path": "src/app/shared/form/dynamic-field.model.ts", "feature": "core-contracts", "notes": "PRE-EXISTING parallel contract: 17 DynamicFieldType values incl. range/location/media/textarea" },
+    { "id": "domain/section-definition", "type": "type", "name": "AdvertSectionDefinition", "path": "src/app/shared/category/advert-category.model.ts", "feature": "core-contracts", "notes": "PRE-EXISTING parallel contract" },
+    { "id": "service/category-registry", "type": "service", "name": "CategoryRegistry", "path": "src/app/shared/category/category-registry.ts", "feature": "core-contracts", "notes": "PRE-EXISTING: synchronous, signal-based category-definition source (alternative to core CategoryDefinitionSource)" },
+    { "id": "service/advert-repository", "type": "service", "name": "AdvertRepository", "path": "src/app/features/adverts/data/advert.repository.ts", "feature": "core-contracts", "notes": "PRE-EXISTING: abstract class, Observable-based, getById/search/create/update/delete/seed" },
+    { "id": "contracts/barrel", "type": "route", "name": "core-contracts barrel", "path": "src/app/core/contracts/index.ts", "feature": "core-contracts", "notes": "CREATED Phase 1: barrel re-exporting all Phase 0 contracts; follows repo barrel convention" },
+    { "id": "contracts/readme", "type": "route", "name": "core-contracts README", "path": "src/app/core/contracts/README.md", "feature": "core-contracts", "notes": "CREATED Phase 2: documents domain-agnostic-only constraint; Real Estate-specific types belong in future Phase 2 (Category Configuration) module, never here" },
+    { "id": "form/dynamic-form-factory", "type": "service", "name": "DynamicFormFactory", "path": "src/app/shared/form/dynamic-form-factory.ts", "feature": "dynamic-form-engine", "notes": "EXISTS (reused): builds Signal Forms FieldTree + values signal from sections; applies visibleWhen/disabledWhen/requiredWhen + validators generically; domain-agnostic, no category branching" },
+    { "id": "form/dynamic-form-renderer", "type": "component", "name": "DynamicFormRenderer", "path": "src/app/shared/form/dynamic-form-renderer/dynamic-form-renderer.component.ts", "feature": "dynamic-form-engine", "notes": "EXISTS (reused): top-level renderer over sections + FieldTree; create/edit/search/preview modes" },
+    { "id": "form/dynamic-section-renderer", "type": "component", "name": "DynamicSectionRenderer", "path": "src/app/shared/form/dynamic-section-renderer/dynamic-section-renderer.component.ts", "feature": "dynamic-form-engine", "notes": "EXISTS (reused): renders one section, honors visibleWhen, layout grids" },
+    { "id": "form/dynamic-field-renderer", "type": "component", "name": "DynamicFieldRenderer", "path": "src/app/shared/form/dynamic-field-renderer/dynamic-field-renderer.component.ts", "feature": "dynamic-form-engine", "notes": "EXISTS (reused): dispatches field type a component via DynamicFieldRegistry (not domain branching)" },
+    { "id": "form/dynamic-field-registry", "type": "service", "name": "DynamicFieldRegistry", "path": "src/app/shared/form/dynamic-field-registry.ts", "feature": "dynamic-form-engine", "notes": "EXISTS (reused): field-type -> component map; registered text/textarea/number/currency/select/email/checkbox/image" },
+    { "id": "form/dynamic-validator-registry", "type": "service", "name": "DynamicValidatorRegistry", "path": "src/app/shared/form/dynamic-validator-registry.ts", "feature": "dynamic-form-engine", "notes": "EXISTS (reused): named validation checks; custom validators via registry, not category data" },
+    { "id": "form/dynamic-condition", "type": "type", "name": "evaluateCondition", "path": "src/app/shared/form/dynamic-condition.ts", "feature": "dynamic-form-engine", "notes": "EXISTS (reused): pure framework-free visibility-rule evaluator; spec'd in dynamic-condition.spec.ts" },
+    { "id": "form/serializer", "type": "type", "name": "serializer", "path": "src/app/shared/form/serializer.ts", "feature": "dynamic-form-engine", "notes": "EXISTS (reused): form values <-> Create/UpdateAdvertRequest + AdvertSearchQuery; spec'd" },
+    { "id": "form/attributes-presenter", "type": "type", "name": "advert-attributes.presenter", "path": "src/app/shared/category/advert-attributes.presenter.ts", "feature": "dynamic-form-engine", "notes": "EXISTS (reused): READ-ONLY display engine (spec table / grouped rows) for advert details — the Phase 8 read-only sibling, implemented as a pure presenter" }
+  ],
+  "edges": [
+    { "from": "contracts/advert", "to": "contracts/advert-type", "relation": "uses" },
+    { "from": "contracts/advert", "to": "contracts/advert-location", "relation": "uses" },
+    { "from": "contracts/advert", "to": "contracts/media", "relation": "uses" },
+    { "from": "contracts/category-definition", "to": "contracts/section-definition", "relation": "uses" },
+    { "from": "contracts/category-definition", "to": "contracts/filter-definition", "relation": "uses" },
+    { "from": "contracts/section-definition", "to": "contracts/field-definition", "relation": "uses" },
+    { "from": "contracts/field-definition", "to": "contracts/advert-type", "relation": "uses" },
+    { "from": "contracts/category-definition-source", "to": "contracts/category-definition", "relation": "returns" },
+    { "from": "contracts/advert-repository", "to": "contracts/advert", "relation": "returns" }
+  ],
+  "sideEffects": [
+    {
+      "feature": "core-contracts",
+      "description": "Angular 22.1.1 / TS 6.0.3 / Node 24 audited. Repo already had parallel contracts in features/adverts/domain/ + shared/. Per explicit user instruction, Phase 0 core/contracts/ layer WAS created as canonical, coexisting with existing types.",
+      "resolution": "handled — new generic contracts created under src/app/core/contracts/; merging/unifying with the pre-existing features/adverts/domain/ + shared/ contracts is DEFERRED to a later integration phase. Dual-source-of-truth risk logged."
+    },
+    {
+      "feature": "core-contracts",
+      "description": "Phase 4 verification: repo tsc (npx tsc -p tsconfig.app.json --noEmit) exit 0; repo lint (ng lint) 'All files pass linting'. Both PROPOSED CONTRACT comments present on repository interfaces. Domain-agnostic self-check passed (no Real Estate fields).",
+      "resolution": "handled — Phase 1 (Core Contracts) complete.",
+      "status": "handled"
+    },
+    {
+      "feature": "dynamic-form-engine",
+      "description": "Phase 5 discovery: a complete, mature Dynamic Form Engine already exists in shared/form/ + shared/category/ (Signal Forms via @angular/forms/signals), covering every Phase 5 requirement: field-type->component registry, signal form state, section/field renderers, visibility conditions, validation registry, read-only presenter (advert-attributes.presenter), serializer.",
+      "resolution": "handled — REUSED, not rebuilt. No parallel engine created on core/contracts FieldDefinition (that contract remains unintegrated). Verified health: tsc exit 0, ng lint pass, ng test 19 files/97 tests green, field components SSR-safe (no browser globals).",
+      "status": "handled"
+    }
+  ]
+}

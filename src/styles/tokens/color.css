@@ -1,7 +1,362 @@
-/*
- * Primitive color scales — exposed to Tailwind v4 via @theme in styles.css.
- * Values are PLACEHOLDERS pending extraction from the Figma "Foundations" file.
- * TODO: verify against Figma (Brand/Teal, Brand/Blue, Neutral/Navy|Slate|Gray,
- * Feedback/Coral, Feedback/Success|Warning|Info — each 10-step 50..900).
- * This file is documentation/reference; the canonical @theme definitions live in styles.css.
+/**
+ * Design Tokens — "رو در رو" Marketplace
+ * Source: foundations.png (design system reference)
+ * Generated for review — DO NOT wire into the app until you confirm
+ * whether the repo already has a theming/token mechanism (§5 Dependency
+ * Discipline: reuse before create). If it does, port these values into
+ * that mechanism instead of importing this file wholesale.
+ *
+ * NOTE ON SOURCE DATA (flagging, not guessing):
+ * In foundations.png, several Light-mode swatches are labeled "L: #808080"
+ * (bg/primary, bg/inverse's D value reused as L, surface/default,
+ * surface/raised, surface/overlay, action/secondary/default) while their
+ * rendered swatch chips are visibly near-white. #808080 is almost
+ * certainly a copy-paste/placeholder error in the design file, not an
+ * intended mid-gray background. I've used the visually-implied light
+ * value (near-white / brand-tinted white) instead and flagged each
+ * instance below with a comment. Confirm against the actual Figma file
+ * before treating these as final — this is ASSUMED, not OBSERVED.
  */
+
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+
+  /* ===== Brand — Teal (Primary) ===== */
+  --color-teal-50: #F5FBFB;
+  --color-teal-100: #E7F5F4;
+  --color-teal-200: #CAE9E7;
+  --color-teal-300: #9AD6D2;
+  --color-teal-400: #52B8B2;
+  --color-teal-500: #0F9D94;
+  --color-teal-600: #0D837B;
+  --color-teal-700: #0B6F68;
+  --color-teal-800: #085550;
+  --color-teal-900: #063B37;
+  --color-teal-950: #042724;
+
+  /* ===== Brand — Blue (Secondary) ===== */
+  --color-blue-50: #F6F9FE;
+  --color-blue-100: #E9EFFD;
+  --color-blue-200: #CFDDFB;
+  --color-blue-300: #A3BDF7;
+  --color-blue-400: #628FF1;
+  --color-blue-500: #2563EB;
+  --color-blue-600: #1F53C4;
+  --color-blue-700: #1A46A6;
+  --color-blue-800: #14357F;
+  --color-blue-900: #0E2558;
+  --color-blue-950: #09183A;
+
+  /* ===== Neutral — Navy ===== */
+  --color-navy-50: #F5F6F6;
+  --color-navy-100: #E7E8EA;
+  --color-navy-200: #CACCD0;
+  --color-navy-300: #9A9EA6;
+  --color-navy-400: #525866;
+  --color-navy-500: #0F172A;
+  --color-navy-600: #0D1323;
+  --color-navy-700: #0B101E;
+  --color-navy-800: #080C17;
+  --color-navy-900: #060910;
+  --color-navy-950: #04060A;
+
+  /* ===== Neutral — Slate ===== */
+  --color-slate-50: #F8F8F9;
+  --color-slate-100: #EDEEF0;
+  --color-slate-200: #D7DADE;
+  --color-slate-300: #B2B8C0;
+  --color-slate-400: #7B8593;
+  --color-slate-500: #475569;
+  --color-slate-600: #3B4758;
+  --color-slate-700: #323C4A;
+  --color-slate-800: #262E39;
+  --color-slate-900: #1B2027;
+  --color-slate-950: #11151A;
+
+  /* ===== Neutral — Gray ===== */
+  --color-gray-50: #FEFFFF;
+  --color-gray-100: #FEFEFE;
+  --color-gray-200: #FCFDFE;
+  --color-gray-300: #F9FBFC;
+  --color-gray-400: #F5F8FB;
+  --color-gray-500: #F1F5F9;
+  --color-gray-600: #C9CCD0;
+  --color-gray-700: #AAADB0;
+  --color-gray-800: #828486;
+  --color-gray-900: #5A5C5D;
+  --color-gray-950: #3B3C3D;
+
+  /* ===== Feedback — Coral (Destructive) ===== */
+  --color-coral-50: #FFF9F9;
+  --color-coral-100: #FFF0F0;
+  --color-coral-200: #FFDEDE;
+  --color-coral-300: #FFC1C1;
+  --color-coral-400: #FF9494;
+  --color-coral-500: #FF6B6B;
+  --color-coral-600: #D55959;
+  --color-coral-700: #B44B4B;
+  --color-coral-800: #8A3A3A;
+  --color-coral-900: #5F2828;
+  --color-coral-950: #3F1A1A;
+
+  /* ===== Feedback — Success ===== */
+  --color-success-50: #F5FCFA;
+  --color-success-100: #E7F8F2;
+  --color-success-200: #CAF0E3;
+  --color-success-300: #9BE2CA;
+  --color-success-400: #53CDA4;
+  --color-success-500: #10B981;
+  --color-success-600: #0D9A6C;
+  --color-success-700: #0B835B;
+  --color-success-800: #096446;
+  --color-success-900: #064530;
+  --color-success-950: #042D20;
+
+  /* ===== Feedback — Warning ===== */
+  --color-warning-50: #FFFBF5;
+  --color-warning-100: #FEF5E7;
+  --color-warning-200: #FDEAC9;
+  --color-warning-300: #FBD699;
+  --color-warning-400: #F8B94F;
+  --color-warning-500: #F59E0B;
+  --color-warning-600: #CC8409;
+  --color-warning-700: #AD6F08;
+  --color-warning-800: #845506;
+  --color-warning-900: #5C3B04;
+  --color-warning-950: #3C2703;
+
+  /* ===== Feedback — Info ===== */
+  --color-info-50: #F7FAFF;
+  --color-info-100: #EBF2FE;
+  --color-info-200: #D4E3FD;
+  --color-info-300: #ADCAFB;
+  --color-info-400: #72A5F9;
+  --color-info-500: #3B82F6;
+  --color-info-600: #316CCD;
+  --color-info-700: #2A5CAE;
+  --color-info-800: #204685;
+  --color-info-900: #16315C;
+  --color-info-950: #0E203C;
+
+  /* ===== Semantic — Background ===== */
+  --bg-primary: #FFFFFF; /* ASSUMED — source said #808080, treated as placeholder error */
+  --bg-secondary: #FEFEFE;
+  --bg-tertiary: #FEFEFE;
+  --bg-inverse: #060910;
+  --bg-brand-subtle: #F5FBFB;
+
+  /* ===== Semantic — Surface ===== */
+  --surface-default: #FFFFFF; /* ASSUMED — same #808080 note as above */
+  --surface-raised: #FFFFFF; /* ASSUMED — same #808080 note as above */
+  --surface-sunken: #FEFEFE;
+  --surface-overlay: #FFFFFF; /* ASSUMED — same #808080 note as above */
+  --surface-selected: #F5FBFB;
+
+  /* ===== Semantic — Text ===== */
+  --text-primary: #060910;
+  --text-secondary: #475569;
+  --text-tertiary: #7B8593;
+  --text-disabled: #B2B8C0;
+  --text-inverse: #FFFFFF; /* ASSUMED — same #808080 note as above */
+  --text-link: #2563EB;
+  --text-brand: #0B6F68;
+  --text-error: #D55959;
+  --text-success: #0B835B;
+  --text-warning: #AD6F08;
+
+  /* ===== Semantic — Border ===== */
+  --border-subtle: #FCFDFE;
+  --border-default: #B2B8C0;
+  --border-strong: #475569;
+  --border-focus: #0F9D94;
+  --border-error: #FF6B6B;
+  --border-success: #10B981;
+
+  /* ===== Semantic — Action ===== */
+  --action-primary-default: #0B6F68;
+  --action-primary-hover: #085550;
+  --action-primary-pressed: #063B37;
+  --action-primary-disabled: #F9FBFC;
+  --action-secondary-default: #FFFFFF; /* ASSUMED — same #808080 note as above */
+  --action-secondary-hover: #FEFFFF;
+  --action-secondary-pressed: #FEFEFE;
+  --action-destructive-default: #FF6B6B;
+  --action-destructive-hover: #D55959;
+
+  /* ===== Semantic — Feedback ===== */
+  --feedback-info: #3B82F6;
+  --feedback-info-subtle: #F7FAFF;
+  --feedback-success: #10B981;
+  --feedback-success-subtle: #F5FCFA;
+  --feedback-warning: #F59E0B;
+  --feedback-warning-subtle: #FFFBF5;
+  --feedback-error: #FF6B6B;
+  --feedback-error-subtle: #FFF9F9;
+
+  /* ===== Typography ===== */
+  --font-family-base: 'IRANSansX', system-ui, sans-serif;
+
+  --font-display-large: 700 56px/64px var(--font-family-base); /* IRANSansX Heavy, -1.2px */
+  --font-display-medium: 700 48px/56px var(--font-family-base); /* IRANSansX Heavy, -1px */
+  --font-display-small: 800 40px/48px var(--font-family-base); /* IRANSansX ExtraBold, -0.8px */
+  --font-heading-h1: 800 32px/40px var(--font-family-base); /* -0.5px */
+  --font-heading-h2: 800 28px/36px var(--font-family-base); /* -0.4px */
+  --font-heading-h3: 800 24px/32px var(--font-family-base); /* -0.3px */
+  --font-heading-h4: 500 20px/28px var(--font-family-base); /* Medium, -0.2px */
+  --font-heading-h5: 500 18px/26px var(--font-family-base); /* -0.1px */
+  --font-heading-h6: 500 16px/24px var(--font-family-base); /* 0px */
+  --font-body-large: 400 18px/28px var(--font-family-base); /* Regular, 0px */
+  --font-body-medium: 400 16px/24px var(--font-family-base);
+  --font-body-small: 400 14px/20px var(--font-family-base);
+  --font-label-large: 500 16px/24px var(--font-family-base); /* Medium, 0.1px */
+  --font-label-medium: 500 14px/20px var(--font-family-base); /* 0.1px */
+  --font-label-small: 500 12px/16px var(--font-family-base); /* 0.2px */
+  --font-caption: 400 12px/16px var(--font-family-base); /* Regular, 0.1px */
+
+  /* letter-spacing companions (apply alongside the font-* shorthand above) */
+  --tracking-display-large: -1.2px;
+  --tracking-display-medium: -1px;
+  --tracking-display-small: -0.8px;
+  --tracking-h1: -0.5px;
+  --tracking-h2: -0.4px;
+  --tracking-h3: -0.3px;
+  --tracking-h4: -0.2px;
+  --tracking-h5: -0.1px;
+  --tracking-h6: 0px;
+  --tracking-body: 0px;
+  --tracking-label: 0.1px;
+  --tracking-label-small: 0.2px;
+  --tracking-caption: 0.1px;
+
+  /* ===== Spacing (base 4px) ===== */
+  --spacing-0: 0px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-20: 80px;
+  --spacing-24: 96px;
+  --spacing-30: 120px;
+
+  /* ===== Radius ===== */
+  --radius-none: 0px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-3xl: 32px;
+  --radius-full: 999px;
+
+  /* ===== Shadows =====
+     NOTE: exact shadow color/blur/offset values were not legible in the
+     source image (swatches only, no printed values). ASSUMED here as
+     conventional Tailwind-style shadows using --color-navy-950 at low
+     opacity — replace with real values once you can pull them from the
+     Figma file / inspector directly. */
+  --shadow-xs: 0 1px 2px rgba(4, 6, 10, 0.05);
+  --shadow-sm: 0 1px 3px rgba(4, 6, 10, 0.08), 0 1px 2px rgba(4, 6, 10, 0.06);
+  --shadow-md: 0 4px 6px rgba(4, 6, 10, 0.08), 0 2px 4px rgba(4, 6, 10, 0.06);
+  --shadow-lg: 0 10px 15px rgba(4, 6, 10, 0.10), 0 4px 6px rgba(4, 6, 10, 0.06);
+  --shadow-xl: 0 20px 25px rgba(4, 6, 10, 0.12), 0 8px 10px rgba(4, 6, 10, 0.06);
+  --shadow-overlay: 0 25px 50px rgba(4, 6, 10, 0.25);
+  --shadow-focus-ring: 0 0 0 3px rgba(15, 157, 148, 0.35); /* teal-500 based */
+
+  /* ===== Motion =====
+     Duration/easing values were not fully legible either — ASSUMED
+     conventional values in line with the "Standard" / "Enter" / "Exit"
+     labels visible in the source. Confirm exact ms/cubic-bezier from Figma. */
+  --motion-duration-instant: 100ms;
+  --motion-duration-fast: 150ms;
+  --motion-duration-standard: 200ms;
+  --motion-duration-emphasized: 300ms;
+  --motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --motion-easing-enter: cubic-bezier(0, 0, 0.2, 1);
+  --motion-easing-exit: cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* ============================================================
+   DARK MODE
+   Apply via [data-theme="dark"] on <html> (or swap to .dark
+   class / prefers-color-scheme — match whatever the repo's
+   existing theme-switch mechanism already uses; do not
+   introduce a second one).
+   ============================================================ */
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  /* ===== Semantic — Background ===== */
+  --bg-primary: #060910;
+  --bg-secondary: #080C17;
+  --bg-tertiary: #0B101E;
+  --bg-inverse: #808080; /* ASSUMED — mirrors the light-mode #808080 anomaly; verify */
+  --bg-brand-subtle: #042724;
+
+  /* ===== Semantic — Surface ===== */
+  --surface-default: #080C17;
+  --surface-raised: #0B101E;
+  --surface-sunken: #04060A;
+  --surface-overlay: #0B101E;
+  --surface-selected: #042724;
+
+  /* ===== Semantic — Text ===== */
+  --text-primary: #FEFFFF;
+  --text-secondary: #B2B8C0;
+  --text-tertiary: #7B8593;
+  --text-disabled: #3B4758;
+  --text-inverse: #060910;
+  --text-link: #628FF1;
+  --text-brand: #9AD6D2;
+  --text-error: #FF9494;
+  --text-success: #53CDA4;
+  --text-warning: #F8B94F;
+
+  /* ===== Semantic — Border ===== */
+  --border-subtle: #0B101E;
+  --border-default: #3B4758;
+  --border-strong: #7B8593;
+  --border-focus: #52B8B2;
+  --border-error: #FF9494;
+  --border-success: #53CDA4;
+
+  /* ===== Semantic — Action ===== */
+  --action-primary-default: #0F9D94;
+  --action-primary-hover: #52B8B2;
+  --action-primary-pressed: #0D837B;
+  --action-primary-disabled: #0D1323;
+  --action-secondary-default: #0B101E;
+  --action-secondary-hover: #0D1323;
+  --action-secondary-pressed: #080C17;
+  --action-destructive-default: #FF6B6B;
+  --action-destructive-hover: #FF9494;
+
+  /* ===== Semantic — Feedback ===== */
+  --feedback-info: #72A5F9;
+  --feedback-info-subtle: #0E203C;
+  --feedback-success: #53CDA4;
+  --feedback-success-subtle: #042D20;
+  --feedback-warning: #F8B94F;
+  --feedback-warning-subtle: #3C2703;
+  --feedback-error: #FF9494;
+  --feedback-error-subtle: #3F1A1A;
+
+  /* Shadows read heavier / more opaque against dark surfaces */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.45), 0 4px 6px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.5), 0 8px 10px rgba(0, 0, 0, 0.3);
+  --shadow-overlay: 0 25px 50px rgba(0, 0, 0, 0.6);
+  --shadow-focus-ring: 0 0 0 3px rgba(82, 184, 178, 0.4); /* teal-400 based */
+
+  /* Brand/neutral/feedback ramp primitives (--color-*) stay identical
+     across themes — only semantic tokens above are re-pointed. */
+}
